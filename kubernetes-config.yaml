@@ -23,7 +23,9 @@ spec:
         ports:
         - containerPort: 80
           name: "nginx-server"
+---
 
+apiVersion: v1
 kind: Service
 metadata: 
   name: hip-local-ui-svc
@@ -35,7 +37,9 @@ spec:
   selector: 
     app: hip-local-ui
   type: NodePort
+---
 
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: hip-local-ingress
