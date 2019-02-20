@@ -56,4 +56,4 @@ spec:
       - path: /
         backend:
           serviceName: hip-local-ui-svc
-          servicePort: 8080
+          servicePort: 80
