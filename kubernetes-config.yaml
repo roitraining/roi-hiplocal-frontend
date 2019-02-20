@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hip-local-ui
+  labels:
+    app: hip-local-ui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hip-local-ui
+  template:
+    metadata:
+      labels:
+        app: hip-local-ui
+    spec:
+      containers:
+      - name: hip-local-ui
+        image: gcr.io/roi-hip-local/ui:v0.1
+        env:
+        - name: APP_SETTINGS
+          value: "config.KubernetesConfig"
+        ports:
+        - containerPort: 80
+          name: "nginx-server"
+
+kind: Service
+metadata: 
+  name: hip-local-ui-svc
+spec: 
+  ports: 
+     -  port: 80
+        protocol: TCP
+        targetPort: 8080
+  selector: 
+    app: hip-local-ui
+  type: NodePort
+
+kind: Ingress
+metadata:
+  name: hip-local-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "hip-local"
+spec:
+  backend:
+    serviceName: hip-local-ui-svc
+    servicePort: 80
+  rules:
+  - host: hiplocal.kwikstart.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hip-local-ui-svc
+          servicePort: 8080
