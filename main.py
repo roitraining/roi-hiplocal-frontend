@@ -27,8 +27,8 @@ except:
   # Port is 5000 because only reason for running from command line locally
   # is because backend is being debugged in vscode, in which case it is on port 5000
   URL = 'http://localhost:5000'
-  PROJECT_NAME = 'roi-hip-local'
-  BUCKET = 'roi-hip-local'
+  PROJECT_NAME = 'roi-hiplocal'
+  BUCKET = 'roi-hiplocal'
 
 @app.route("/")
 def home():

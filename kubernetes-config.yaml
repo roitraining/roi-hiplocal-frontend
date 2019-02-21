@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: hip-local-ui
-        image: gcr.io/roi-hip-local/ui:v0.1
+        image: gcr.io/roi-hiplocal/ui:v0.1
         env:
         - name: APP_SETTINGS
           value: "config.KubernetesConfig"
