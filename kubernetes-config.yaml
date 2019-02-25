@@ -16,12 +16,12 @@ spec:
     spec:
       containers:
       - name: hip-local-ui
-        image: gcr.io/roi-hiplocal/ui:v0.2
+        image: gcr.io/roi-hiplocal/ui:v0.7
         env:
         - name: APP_SETTINGS
           value: "config.KubernetesConfig"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: "nginx-server"
 ---
 
