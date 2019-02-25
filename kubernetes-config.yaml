@@ -22,7 +22,20 @@ spec:
           value: "config.KubernetesConfig"
         ports:
         - containerPort: 8080
-          name: "nginx-server"
+          name: "frontend-server"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.1"
+          limits:
+            memory: "512Mi"
+            cpu: "0.5"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 60
+          periodSeconds: 60
 ---
 
 apiVersion: v1
@@ -57,3 +70,21 @@ spec:
         backend:
           serviceName: hip-local-ui-svc
           servicePort: 80
+---
+
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hip-local-ui-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2beta1
+    kind: Deployment
+    name: hip-local-ui
+  minReplicas: 3
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 60
