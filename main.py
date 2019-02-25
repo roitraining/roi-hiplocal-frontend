@@ -87,15 +87,16 @@ def create_happening():
 
 @app.route("/happening/like/<id>")
 def like(id):
-  try:
-    print('checking user has logged in')
-    auth.authorize(request)
-  except Exception: 
-    print('user attempted to like a happening when not logged in')
-    return redirect('/login')
+  # uncomment following code to enforce authentication for liking
+  # try:
+  #   print('checking user has logged in')
+  #   auth.authorize(request)
+  # except Exception: 
+  #   print('user attempted to like a happening when not logged in')
+  #   return redirect('/login')
   url = URL + '/happening/like/' + id
-  requests.get(url)
-  return redirect('/')
+  likes = requests.get(url)
+  return jsonify(likes.text)
 
 @app.route("/login")
 def login():
