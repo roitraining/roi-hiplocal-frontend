@@ -1,6 +1,7 @@
-FROM python:3
+FROM python:3.7
 WORKDIR /usr/src/app
 COPY . .
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 ENV GREETING 'Welcome to Hip-Local'
-CMD [ "python3", "./main.py" ]
+RUN pip install gunicorn
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 main:app
