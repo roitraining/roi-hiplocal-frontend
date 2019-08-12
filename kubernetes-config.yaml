@@ -60,6 +60,7 @@ metadata:
   name: hip-local-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "hip-local"
+    networking.gke.io/managed-certificates: "roihiplocal-certificate"
 spec:
   backend:
     serviceName: hip-local-ui-svc
